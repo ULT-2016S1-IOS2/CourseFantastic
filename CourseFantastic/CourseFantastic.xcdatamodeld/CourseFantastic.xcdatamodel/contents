@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="10171" systemVersion="15E65" minimumToolsVersion="Automatic">
+    <entity name="Attendance" representedClassName=".Attendance" syncable="YES">
+        <attribute name="complete" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
+        <relationship name="subjectDelivery" maxCount="1" deletionRule="Nullify" destinationEntity="SubjectDelivery" inverseName="attendance" inverseEntity="SubjectDelivery" syncable="YES"/>
+    </entity>
+    <entity name="Course" representedClassName=".Course" syncable="YES">
+        <attribute name="code" attributeType="String" syncable="YES"/>
+        <attribute name="enrolmentId" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="id" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="info" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="name" attributeType="String" syncable="YES"/>
+        <attribute name="version" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <relationship name="student" maxCount="1" deletionRule="Nullify" destinationEntity="Student" inverseName="enrolments" inverseEntity="Student" syncable="YES"/>
+        <relationship name="subjects" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Subject" inverseName="course" inverseEntity="Subject" syncable="YES"/>
+    </entity>
+    <entity name="Student" representedClassName=".Student" syncable="YES">
+        <attribute name="dob" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="email" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="firstName" attributeType="String" syncable="YES"/>
+        <attribute name="lastName" attributeType="String" syncable="YES"/>
+        <attribute name="studentId" attributeType="String" syncable="YES"/>
+        <relationship name="enrolments" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Course" inverseName="student" inverseEntity="Course" syncable="YES"/>
+    </entity>
+    <entity name="Subject" representedClassName=".Subject" syncable="YES">
+        <attribute name="code" attributeType="String" syncable="YES"/>
+        <attribute name="info" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="name" attributeType="String" syncable="YES"/>
+        <relationship name="course" maxCount="1" deletionRule="Nullify" destinationEntity="Course" inverseName="subjects" inverseEntity="Course" syncable="YES"/>
+        <relationship name="timetable" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="SubjectDelivery" inverseName="subject" inverseEntity="SubjectDelivery" syncable="YES"/>
+    </entity>
+    <entity name="SubjectDelivery" representedClassName=".SubjectDelivery" syncable="YES">
+        <attribute name="dateOnly" attributeType="Date" syncable="YES"/>
+        <attribute name="endDate" attributeType="Date" syncable="YES"/>
+        <attribute name="eventId" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="hasAlarm" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
+        <attribute name="hasNote" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
+        <attribute name="itemId" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="location" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="startDate" attributeType="Date" syncable="YES"/>
+        <relationship name="attendance" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="Attendance" inverseName="subjectDelivery" inverseEntity="Attendance" syncable="YES"/>
+        <relationship name="subject" maxCount="1" deletionRule="Nullify" destinationEntity="Subject" inverseName="timetable" inverseEntity="Subject" syncable="YES"/>
+    </entity>
+    <elements>
+        <element name="Attendance" positionX="-9" positionY="108" width="128" height="75"/>
+        <element name="Course" positionX="-54" positionY="27" width="128" height="165"/>
+        <element name="Student" positionX="-63" positionY="-18" width="128" height="135"/>
+        <element name="Subject" positionX="-36" positionY="54" width="128" height="120"/>
+        <element name="SubjectDelivery" positionX="-18" positionY="72" width="128" height="195"/>
+    </elements>
+</model>
